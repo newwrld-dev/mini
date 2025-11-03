@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💎 BILAL-MD MINI BOT 💎</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Orbitron:wght@500;700&display=swap');
+
+    :root {
+      --primary: #7b2ff7;
+      --secondary: #f107a3;
+      --accent: #00eaff;
+      --dark: #050509;
+      --glass: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at 20% 30%, #090013 0%, #000 100%);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(130deg, rgba(123,47,247,0.15), rgba(0,234,255,0.1), rgba(241,7,163,0.1));
+      filter: blur(80px);
+      animation: glow 10s infinite alternate;
+      z-index: -2;
+    }
+
+    @keyframes glow {
+      0% { filter: blur(60px) hue-rotate(0deg); }
+      100% { filter: blur(100px) hue-rotate(360deg); }
+    }
+
+    /* Floating neon particles */
+    .particles div {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: float 18s linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 0; }
+      10%,90% { opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    .container {
+      z-index: 1;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .box {
+      width: 100%;
+      max-width: 360px;
+      padding: 25px 20px;
+      border-radius: 18px;
+      backdrop-filter: blur(16px);
+      background: var(--glass);
+      border: 1px solid var(--border);
+      box-shadow: 0 0 25px rgba(123,47,247,0.3);
+      text-align: center;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 40px rgba(123,47,247,0.5);
+    }
+
+    .logo-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(22px, 5vw, 28px);
+      background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(0,234,255,0.4);
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+      animation: shimmer 4s infinite linear;
+    }
+
+    @keyframes shimmer {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(18px, 4vw, 22px);
+      background: linear-gradient(90deg, var(--accent), #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    h6 {
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .input-container {
+      display: flex;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 12px rgba(0,234,255,0.2);
+    }
+
+    .input-container input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 12px;
+      color: #fff;
+      font-size: 15px;
+    }
+
+    .input-container input::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+
+    .input-container button {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border: none;
+      padding: 12px 16px;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .input-container button:hover {
+      background: linear-gradient(90deg, var(--accent), var(--secondary));
+      box-shadow: 0 0 20px rgba(0,234,255,0.4);
+    }
+
+    #waiting-message {
+      margin-top: 12px;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--accent);
+      text-shadow: 0 0 8px var(--accent);
+      display: none;
+      font-size: 14px;
+    }
+
+    .code-display {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+    }
+
+    .code-display:hover {
+      background: rgba(0,234,255,0.1);
+      box-shadow: 0 0 15px rgba(0,234,255,0.3);
+      transform: translateY(-1px);
+    }
+
+    .code-value {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    @media (max-width: 450px) {
+      .box {
+        max-width: 92%;
+        padding: 20px 15px;
+      }
+      .input-container {
+        flex-direction: column;
+      }
+      .input-container button {
+        border-radius: 0 0 10px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="container">
+    <div class="box" id="box">
+      <div class="logo-text">🌹 PAIR 🌹</div>
+      <h3>💚popkid xmd❣️</h3>
+      <h6>🌟add your phone number🌟</h6>
+
+      <div class="input-container">
+        <input placeholder="254..." type="tel" id="number" name="number" />
+        <button id="submit">❤️ submit ❤️</button>
+      </div>
+
+      <div id="waiting-message">WAIT... 😊</div>
+      <main id="pair"></main>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      const size = Math.random() * 7 + 2;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = ['#7b2ff7','#00eaff','#f107a3'][Math.floor(Math.random()*3)];
+      p.style.left = Math.random()*100 + '%';
+      p.style.animationDuration = Math.random()*18 + 12 + 's';
+      p.style.animationDelay = Math.random()*8 + 's';
+      particlesContainer.appendChild(p);
+    }
+
+    const a = document.getElementById("pair");
+    const b = document.getElementById("submit");
+    const c = document.getElementById("number");
+    const waitingMessage = document.getElementById("waiting-message");
+
+    async function Copy() {
+      const text = document.getElementById("copy-value").innerText;
+      const display = document.getElementById("code-display");
+      await navigator.clipboard.writeText(text);
+      display.innerHTML = '<i class="fas fa-check" style="color:#0f0"></i> COPIED!';
+      display.style.boxShadow = "0 0 20px rgba(0,255,0,0.5)";
+      setTimeout(() => {
+        display.innerHTML = `<i class="fas fa-copy" style="color:var(--accent)"></i> 
+          <span class="code-text">CODE:</span> 
+          <span class="code-value" id="copy-value">${text}</span>`;
+        display.style.boxShadow = "none";
+      }, 1800);
+    }
+
+    b.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (!c.value) {
+        a.innerHTML = '<div style="color:#f107a3;padding:8px;">⚠️ Enter your WhatsApp number with country code.</div>';
+        return;
+      }
+      if (c.value.replace(/[^0-9]/g,"").length < 11) {
+        a.innerHTML = '<div style="color:#f107a3;padding:8px;">❌ Invalid number format</div>';
+        return;
+      }
+
+      const bc = c.value.replace(/[^0-9]/g,"");
+      waitingMessage.style.display = "block";
+      a.innerHTML = '';
+
+      try {
+        const { data } = await axios(`/code?number=${bc}`);
+        const code = data.code || "Service Unavailable";
+        waitingMessage.style.display = "none";
+        a.innerHTML = `
+          <div class="code-display" id="code-display" onclick="Copy()">
+            <i class="fas fa-copy" style="color:var(--accent)"></i>
+            <span class="code-text">CODE:</span>
+            <span class="code-value" id="copy-value">${code}</span>
+          </div>`;
+      } catch {
+        waitingMessage.style.display = "none";
+        a.innerHTML = '<div style="color:#f107a3;padding:8px;">⚠️ Service Unavailable</div>';
+      }
+    });
+  </script>
+</body>
+</html>
