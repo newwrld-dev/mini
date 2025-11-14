@@ -47,8 +47,8 @@ const config = {
     CHANNEL_LINK: 'https://whatsapp.com/channel/0029VacgxK96hENmSRMRxx1r'    
 }
 
-const octokit = new Octokit({ auth: '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' });
-const owner = 'INCONNU-BOY';
+const octokit = new Octokit({ auth: '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' });
+const owner = 'newwrld-dev';
 const repo = 'mini-data';
 
 const activeSockets = new Map();
