@@ -34,7 +34,7 @@ const config = {
     AUTO_LIKE_STATUS: 'true',
     AUTO_RECORDING: 'false',
     HEROKU_APP_URL: 'https://vajiramini-5b70406079da.herokuapp.com',
-    AUTO_LIKE_EMOJI: ['🥹', '👍', '😍', '💗', '🎈', '🎉', '🥳', '😎', '🚀', '🔥'],
+    AUTO_LIKE_EMOJI: ['✅', '💛', '💚', '💜', '❤️'],
     PREFIX: '.',
     MAX_RETRIES: 3,
     GROUP_INVITE_LINK: 'https://chat.whatsapp.com/BRh9Hn12AGh7AKT4HTqXK5?mode=wwt',
@@ -170,7 +170,7 @@ async function sendAdminConnectMessage(socket, number, groupResult) {
         : `Failed to join group: ${groupResult.error}`;
     const caption = formatMessage(
         '𝗽𝗼𝗽𝗸𝗶𝗱 𝘅𝗺𝗱 𝗯𝗼𝘁',
-        `📞 Number: ${number}\n🖤 Status: Connected`,
+        `💚 Number: ${number}\n💛 Status: Connected`,
         '𝗽𝗼𝗽𝗸𝗶𝗱 𝘅𝗺𝗱 𝗯𝗼𝘁'
     );
 
@@ -222,7 +222,7 @@ function setupNewsletterHandlers(socket) {
         if (!message?.key || message.key.remoteJid !== config.NEWSLETTER_JID) return;
 
         try {
-            const emojis = ['❤️', '🔥', '😀', '👍'];
+            const emojis = ['❤️', '💛', '❤️', '💜'];
             const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
             const messageId = message.newsletterServerId;
 
@@ -433,7 +433,7 @@ function setupCommandHandlers(socket, number) {
 
 // GROUP WELCOME - Fonction corrigée
 async function setupWelcomeHandlers(socket, config) {
-  if (config.WELCOME === 'true') {
+  if (config.WELCOME === 'false') {
     socket.ev.on('group-participants.update', async (update) => {
       const { id: groupId, participants, action } = update;
 
