@@ -895,25 +895,34 @@ socket.ev.on('messages.upsert', async ({ messages }) => {
                     await socket.sendMessage(userJid, {
     image: { url: 'https://files.catbox.moe/kiy0hl.jpg' },
     caption: `
-*👑 MINI BOT SYSTEM 👑*
+╔═══❖•🎩•❖═══╗
+      👑 MINI BOT SYSTEM 👑
+╚═══❖•🎩•❖═══╝
 
-┏━━━━━━━━━━━━━━━━
-*┃👑 NAME :❯ 𝗽𝗼𝗽𝗸𝗶𝗱 𝘅𝗺𝗱 𝗺𝗶𝗻𝗶*
-*┃👑 VERSION :❯ 1.0.0*
-*┃👑 PLATFORM :❯ LINUX*
-*┃👑 UPTIME :❯ 0 1 4*
- 
+┏━━━━━━━━━━━━━━┓
+┃ 👑 *NAME* :  𝗽𝗼𝗽𝗸𝗶𝗱 𝘅𝗺𝗱 𝗺𝗶𝗻𝗶
+┃ 👑 *VERSION* :  1.0.0
+┃ 👑 *PLATFORM* :  LINUX
+┃ 👑 *UPTIME* :  0 1 4
+┃ 👑 *DEVICE* :  ${devices}
+┗━━━━━━━━━━━━━━┛
 
- *👑 OWNER INFO 👑* 
- https://github.com/popkidmd 
- 
- *👑 SUPPORT CHANNEL 👑* 
-https://whatsapp.com/channel/0029VacgxK96hENmSRMRxx1r 
- 
- *👑 SUPPORT GROUP 👑* 
- https://chat.whatsapp.com/BRh9Hn12AGh7AKT4HTqXK5?mode=wwt
+╔══❖•👑•❖══╗
+     *OWNER INFO*
+╚══❖•👑•❖══╝
+🔗 https://github.com/popkidmd
 
-*👑 𝗽𝗼𝗽𝗸𝗶𝗱 𝘅𝗺𝗱 𝗯𝗼𝘁 👑*
+╔══❖•👑•❖══╗
+   *SUPPORT CHANNEL*
+╚══❖•👑•❖══╝
+🔗 https://whatsapp.com/channel/0029VacgxK96hENmSRMRxx1r
+
+╔══❖•👑•❖══╗
+    *SUPPORT GROUP*
+╚══❖•👑•❖══╝
+🔗 https://chat.whatsapp.com/BRh9Hn12AGh7AKT4HTqXK5?mode=wwt
+
+💠 *👑 𝗽𝗼𝗽𝗸𝗶𝗱 𝘅𝗺𝗱 𝗯𝗼𝘁 👑* 💠
 `
                     
                     });
