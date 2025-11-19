@@ -1,25 +1,97 @@
 module.exports = {
-  command: 'vv',
-  description: 'Owner Only - Retrieve view-once media',
-  category: 'main',
-  react: '😃',
-  execute: async (socket, msg, args, number) => {
-    const sender = msg.key.remoteJid;
-    const isOwner = msg.key.fromMe; // Mini bot me usually owner ka check
+  command: "vv",
+  desc: "Unlock view-once or private media",
+  category: "owner",
+  use: ".vv (reply to media)",
+  fromMe: false,
+  filename: __filename,
 
-    if (!isOwner) {
-      return await socket.sendMessage(sender, {
-        text: "*📛 This is an owner-only command.*"
-      }, { quoted: msg });
+  execute: async (sock, msg, { isCreator, quoted }) => {
+    const jid = msg.key.remoteJid;
+
+    // First reply (same style as ping)
+    await sock.sendMessage(jid, { 
+      text: "*⏳ loading 🥺*" 
+    });
+
+    // Owner check
+    if (!isCreator) {
+      return await sock.sendMessage(
+        jid,
+        { text: "*🚫 Owner only command 😊*" },
+        { quoted: msg }
+      );
     }
 
-    if (!msg.quoted) {
-      return await socket.sendMessage(sender, {
-        text: "*AP KISI PRIVATE PHOTO , VIDEO , YA AUDIO KO MENTION KAR KE 🥺* \n*PHIR ESE LIKHO ☺️* \n\n*❮VV❯* \n\n*PHIR DEKHO KAMAL 😎*"
-      }, { quoted: msg });
+    // Must reply to a media message
+    if (!quoted) {
+      return await sock.sendMessage(
+        jid,
+        {
+          text:
+            "*🚀 View-Once Unlock...😊*\n\n" +
+            "Reply to a *view-once or private* image, video, or audio,\n" +
+            "then type:  `.vv`"
+        },
+        { quoted: msg }
+      );
     }
 
-    // Agar dono conditions pass ho gaye, yahan pe aap ka logic aayega
-    await socket.sendMessage(sender, { text: "*✅ Owner verified!*" }, { quoted: msg });
+    // Processing message (ping style)
+    await sock.sendMessage(jid, { 
+      text: "*🚀 Unlocking...😊*" 
+    });
+
+    try {
+      // Download content correctly
+      const buffer = await quoted.download();
+      const mtype = quoted.mtype;
+
+      let content = {};
+
+      if (mtype === "imageMessage") {
+        content = {
+          image: buffer,
+          caption: quoted.text || "",
+          mimetype: quoted.mimetype || "image/jpeg"
+        };
+      }
+      else if (mtype === "videoMessage") {
+        content = {
+          video: buffer,
+          caption: quoted.text || "",
+          mimetype: quoted.mimetype || "video/mp4"
+        };
+      }
+      else if (mtype === "audioMessage") {
+        content = {
+          audio: buffer,
+          mimetype: "audio/mp4",
+          ptt: quoted.ptt || false
+        };
+      }
+      else {
+        return await sock.sendMessage(
+          jid,
+          { text: "*⚠️ Reply to a view-once image, video or audio 🥺*" },
+          { quoted: msg }
+        );
+      }
+
+      // Send unlocked media
+      await sock.sendMessage(jid, content, { quoted: msg });
+
+      // Done message (same style as ping)
+      await sock.sendMessage(jid, { 
+        text: "*✅ Done...😃*" 
+      });
+
+    } catch (err) {
+      await sock.sendMessage(
+        jid,
+        { text: "*❌ Error...😔*\n" + err.message },
+        { quoted: msg }
+      );
+    }
   }
 };
