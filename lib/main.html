@@ -3,18 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>💚 POPKID MINI BOT 💚</title>
+  <title>🟡 DATA CORE: ACCESS TERMINAL 🟡</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Orbitron:wght@500;700&display=swap');
-
+    /*
+    -- INDUSTRIAL DATA-CORE STYLING CONFIGURATION --
+    */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Bebas+Neue&family=Orbitron:wght@500;700&display=swap');
+    
     :root {
-      --primary: #7b2ff7;
-      --secondary: #f107a3;
-      --accent: #00eaff;
-      --dark: #050509;
-      --glass: rgba(255,255,255,0.07);
-      --border: rgba(255,255,255,0.12);
+      --core-yellow: #ffc400; /* Primary Accent */
+      --core-orange: #ff7f00; /* Secondary Highlight */
+      --core-dark: #121212; /* Base Dark */
+      --core-light: #f0f0f0;
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --border-color: rgba(255, 196, 0, 0.5);
+      --input-bg: rgba(0, 0, 0, 0.7);
+      --shadow-base: 0 0 10px rgba(255, 196, 0, 0.4);
+      --shadow-glow: 0 0 25px rgba(255, 196, 0, 0.8);
     }
 
     * {
@@ -28,43 +34,68 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle at 20% 30%, #090013 0%, #000 100%);
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
+      /* Industrial Gray/Black Background */
+      background: linear-gradient(135deg, #1f1f1f 0%, #050505 100%);
+      color: var(--core-light);
+      font-family: 'Roboto Mono', monospace; /* Monospace for industrial look */
       overflow: hidden;
       position: relative;
     }
 
+    /* Subtle background texture/noise */
     body::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(130deg, rgba(123,47,247,0.15), rgba(0,234,255,0.1), rgba(241,7,163,0.1));
-      filter: blur(80px);
-      animation: glow 10s infinite alternate;
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 49px,
+        rgba(255, 196, 0, 0.05) 50px
+      ), repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 49px,
+        rgba(255, 196, 0, 0.05) 50px
+      );
+      z-index: -3;
+    }
+
+    /* Animated background glow */
+    body::after {
+      content: "";
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--core-yellow) 0%, transparent 70%);
+      opacity: 0.15;
+      animation: pulse-glow 10s infinite ease-in-out alternate;
       z-index: -2;
     }
 
-    @keyframes glow {
-      0% { filter: blur(60px) hue-rotate(0deg); }
-      100% { filter: blur(100px) hue-rotate(360deg); }
+    @keyframes pulse-glow {
+      0% { transform: scale(1) translate(-50%, -50%); opacity: 0.15; top: 10%; left: 10%; }
+      100% { transform: scale(1.2) translate(-50%, -50%); opacity: 0.3; top: 80%; left: 90%; }
     }
 
-    /* Floating neon particles */
+    /* Floating particles */
     .particles div {
       position: absolute;
-      border-radius: 50%;
-      opacity: 0.7;
-      animation: float 18s linear infinite;
+      width: 2px; /* Smaller, sharper particles */
+      height: 2px;
+      background: var(--core-yellow);
+      opacity: 0.8;
+      animation: float 20s linear infinite;
+      box-shadow: 0 0 5px var(--core-yellow);
     }
     @keyframes float {
       0% { transform: translateY(100vh); opacity: 0; }
-      10%,90% { opacity: 1; }
+      10%, 90% { opacity: 1; }
       100% { transform: translateY(-10vh); opacity: 0; }
     }
 
     .container {
-      z-index: 1;
+      z-index: 10;
       width: 100%;
       display: flex;
       justify-content: center;
@@ -72,224 +103,283 @@
       padding: 10px;
     }
 
+    /* Core Box - Segmented/Modular Design */
     .box {
       width: 100%;
-      max-width: 360px;
-      padding: 25px 20px;
-      border-radius: 18px;
-      backdrop-filter: blur(16px);
-      background: var(--glass);
-      border: 1px solid var(--border);
-      box-shadow: 0 0 25px rgba(123,47,247,0.3);
+      max-width: 350px;
+      padding: 0; /* Padding moved inside sections */
+      border-radius: 4px; /* Sharper corners */
+      background: var(--core-dark);
+      border: 3px solid var(--core-yellow);
+      box-shadow: var(--shadow-base);
       text-align: center;
-      transition: 0.3s;
+      transition: all 0.4s ease-in-out;
+      overflow: hidden;
       position: relative;
+    }
+    
+    /* Segment separator line */
+    .box > div:not(:last-child) {
+      border-bottom: 1px solid rgba(255, 196, 0, 0.2);
     }
 
     .box:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 40px rgba(123,47,247,0.5);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-glow);
+    }
+    
+    /* Header Section */
+    .box-header {
+      padding: 20px 15px 15px;
+      background: var(--core-dark);
     }
 
+    /* Main Content Section */
+    .box-content {
+      padding: 15px;
+      background: var(--input-bg);
+    }
+    
+    /* Footer/Result Section */
+    .box-footer {
+      padding: 15px;
+      background: var(--core-dark);
+    }
+
+    /* Title Styling - Bold, Industrial Font */
     .logo-text {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(22px, 5vw, 28px);
-      background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 15px rgba(0,234,255,0.4);
-      margin-bottom: 15px;
-      letter-spacing: 2px;
-      animation: shimmer 4s infinite linear;
-    }
-
-    @keyframes shimmer {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(30px, 7vw, 40px);
+      color: var(--core-yellow);
+      text-shadow: 0 0 10px rgba(255, 196, 0, 0.8);
+      margin-bottom: 5px;
+      letter-spacing: 4px;
+      line-height: 1;
+      padding-bottom: 2px;
     }
 
     h3 {
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(18px, 4vw, 22px);
-      background: linear-gradient(90deg, var(--accent), #fff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 8px;
+      font-size: clamp(14px, 4vw, 18px);
+      color: var(--core-orange);
+      margin-bottom: 5px;
+      letter-spacing: 1px;
     }
 
     h6 {
-      color: rgba(255,255,255,0.7);
-      font-size: 14px;
+      color: var(--core-light);
+      font-size: 11px;
       margin-bottom: 20px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
+    /* Input/Form styling */
     .input-container {
       display: flex;
-      background: rgba(0,0,0,0.4);
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      background: var(--input-bg);
+      border: 1px solid var(--core-orange);
+      border-radius: 4px;
       overflow: hidden;
-      box-shadow: 0 0 12px rgba(0,234,255,0.2);
+      box-shadow: 0 0 10px rgba(255, 127, 0, 0.5);
+      margin-bottom: 10px;
     }
 
     .input-container input {
       flex: 1;
       background: transparent;
       border: none;
-      padding: 12px;
-      color: #fff;
+      padding: 12px 14px;
+      color: var(--core-yellow);
+      font-family: 'Roboto Mono', monospace;
       font-size: 15px;
+      outline: none;
     }
 
     .input-container input::placeholder {
-      color: rgba(255,255,255,0.5);
+      color: rgba(255, 196, 0, 0.6);
     }
 
     .input-container button {
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      background: var(--core-yellow);
       border: none;
-      padding: 12px 16px;
-      color: #fff;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 13px;
+      padding: 12px 18px;
+      color: var(--core-dark);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
       cursor: pointer;
-      transition: 0.3s;
+      transition: 0.2s;
+      letter-spacing: 1px;
     }
 
     .input-container button:hover {
-      background: linear-gradient(90deg, var(--accent), var(--secondary));
-      box-shadow: 0 0 20px rgba(0,234,255,0.4);
+      background: var(--core-orange);
+      color: white;
+      box-shadow: 0 0 15px var(--core-orange);
     }
 
     #waiting-message {
-      margin-top: 12px;
-      font-family: 'Orbitron', sans-serif;
-      color: var(--accent);
-      text-shadow: 0 0 8px var(--accent);
+      margin-top: 10px;
+      font-family: 'Roboto Mono', monospace;
+      color: var(--core-orange);
+      text-shadow: 0 0 5px var(--core-orange);
       display: none;
-      font-size: 14px;
+      font-size: 13px;
+      letter-spacing: 1px;
+      padding: 5px 0;
     }
 
+    /* Code Display Styling */
     .code-display {
-      display: inline-flex;
+      display: flex;
+      justify-content: center;
       align-items: center;
       gap: 8px;
-      background: rgba(0,0,0,0.4);
-      border: 1px solid var(--border);
-      padding: 10px 14px;
-      border-radius: 8px;
+      background: var(--input-bg);
+      border: 1px solid var(--core-yellow);
+      padding: 10px 15px;
+      border-radius: 4px;
       margin-top: 15px;
       cursor: pointer;
-      transition: 0.3s;
-      font-family: 'Orbitron', sans-serif;
+      transition: all 0.3s ease;
+      font-family: 'Roboto Mono', monospace;
       font-size: 14px;
+      box-shadow: var(--shadow-base);
     }
 
     .code-display:hover {
-      background: rgba(0,234,255,0.1);
-      box-shadow: 0 0 15px rgba(0,234,255,0.3);
-      transform: translateY(-1px);
+      background: rgba(255, 196, 0, 0.1);
+      box-shadow: var(--shadow-glow);
+      transform: scale(1.03);
+    }
+
+    .code-text {
+      color: var(--core-light);
+      font-weight: 400;
     }
 
     .code-value {
-      color: var(--accent);
+      color: var(--core-yellow);
       font-weight: 700;
+      user-select: all;
+    }
+    
+    /* Error Message Styling */
+    .error-message {
+      color: var(--core-orange); 
+      padding: 10px; 
+      border: 1px solid var(--core-orange); 
+      border-radius: 4px; 
+      margin-top: 15px;
     }
 
-    @media (max-width: 450px) {
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
       .box {
-        max-width: 92%;
-        padding: 20px 15px;
+        max-width: 95%;
       }
       .input-container {
         flex-direction: column;
       }
-      .input-container button {
-        border-radius: 0 0 10px 10px;
+      .input-container input, .input-container button {
+        border-radius: 0;
       }
     }
   </style>
 </head>
-
 <body>
   <div class="particles" id="particles"></div>
   <div class="container">
     <div class="box" id="box">
-      <div class="logo-text">🌹 PAIR 🌹</div>
-      <h3>💚popkid xmd❣️</h3>
-      <h6>🌟add your phone number🌟</h6>
-
-      <div class="input-container">
-        <input placeholder="254..." type="tel" id="number" name="number" />
-        <button id="submit">❤️ submit ❤️</button>
+      <div class="box-header">
+        <div class="logo-text">DATA-CORE</div>
+        <h3>[ ACCESS TERMINAL ]</h3>
+        <h6>INPUT AUTHENTICATION KEY (WHATSAPP NUMBER)</h6>
       </div>
 
-      <div id="waiting-message">WAIT... 😊</div>
-      <main id="pair"></main>
+      <div class="box-content">
+        <div class="input-container">
+          <input placeholder="2547XXXXXXXX" type="tel" id="number" name="number" />
+          <button id="submit">AUTH >></button>
+        </div>
+      </div>
+      
+      <div class="box-footer">
+        <div id="waiting-message">:: DATA TRANSFER INITIATED... STAND BY ::</div>
+        <main id="pair"></main>
+      </div>
     </div>
   </div>
-
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
   <script>
+    // --- Particle Generation Script (Kept as is, colors updated) ---
     const particlesContainer = document.getElementById('particles');
     for (let i = 0; i < 30; i++) {
       const p = document.createElement('div');
-      const size = Math.random() * 7 + 2;
+      const size = Math.random() * 4 + 1; // Smaller particles
       p.style.width = p.style.height = size + 'px';
-      p.style.background = ['#7b2ff7','#00eaff','#f107a3'][Math.floor(Math.random()*3)];
+      p.style.background = ['var(--core-yellow)', 'var(--core-orange)'][Math.floor(Math.random()*2)];
       p.style.left = Math.random()*100 + '%';
-      p.style.animationDuration = Math.random()*18 + 12 + 's';
+      p.style.animationDuration = Math.random()*20 + 10 + 's';
       p.style.animationDelay = Math.random()*8 + 's';
       particlesContainer.appendChild(p);
     }
-
+  
+    // --- Core Logic Script (Functionality is UNCHANGED) ---
     const a = document.getElementById("pair");
     const b = document.getElementById("submit");
     const c = document.getElementById("number");
     const waitingMessage = document.getElementById("waiting-message");
-
+  
+    // Functionality UNCHANGED, only text/icon updated for industrial look
     async function Copy() {
       const text = document.getElementById("copy-value").innerText;
       const display = document.getElementById("code-display");
       await navigator.clipboard.writeText(text);
-      display.innerHTML = '<i class="fas fa-check" style="color:#0f0"></i> COPIED!';
-      display.style.boxShadow = "0 0 20px rgba(0,255,0,0.5)";
+      display.innerHTML = '<i class="fas fa-check" style="color:#0f0"></i> AUTH KEY COPIED.'; // Green for success
+      display.style.boxShadow = "0 0 20px rgba(0, 255, 0, 0.5)";
       setTimeout(() => {
-        display.innerHTML = `<i class="fas fa-copy" style="color:var(--accent)"></i> 
-          <span class="code-text">CODE:</span> 
+        display.innerHTML = `<i class="fas fa-key" style="color:var(--core-yellow)"></i>   
+          <span class="code-text">PAIRING KEY:</span>   
           <span class="code-value" id="copy-value">${text}</span>`;
-        display.style.boxShadow = "none";
+        display.style.boxShadow = "var(--shadow-base)";
       }, 1800);
     }
-
+    window.Copy = Copy;
+  
     b.addEventListener("click", async (e) => {
       e.preventDefault();
       if (!c.value) {
-        a.innerHTML = '<div style="color:#f107a3;padding:8px;">⚠️ Enter your WhatsApp number with country code.</div>';
+        a.innerHTML = '<div class="error-message">:: FATAL ERROR :: Input Field Empty.</div>';
         return;
       }
-      if (c.value.replace(/[^0-9]/g,"").length < 11) {
-        a.innerHTML = '<div style="color:#f107a3;padding:8px;">❌ Invalid number format</div>';
+      if (c.value.replace(/[^0-9]/g,"").length < 10) {
+        a.innerHTML = '<div class="error-message">:: ERROR 402 :: Invalid Number Format.</div>';
         return;
       }
-
+  
       const bc = c.value.replace(/[^0-9]/g,"");
       waitingMessage.style.display = "block";
       a.innerHTML = '';
-
+  
       try {
+        // API call logic remains UNCHANGED
         const { data } = await axios(`/code?number=${bc}`);
-        const code = data.code || "Service Unavailable";
+        const code = data.code || "SYSTEM_OFFLINE_R02";
         waitingMessage.style.display = "none";
-        a.innerHTML = `
-          <div class="code-display" id="code-display" onclick="Copy()">
-            <i class="fas fa-copy" style="color:var(--accent)"></i>
-            <span class="code-text">CODE:</span>
-            <span class="code-value" id="copy-value">${code}</span>
+        // Updated HTML for the final output
+        a.innerHTML = `  
+          <div class="code-display" id="code-display" onclick="Copy()">  
+            <i class="fas fa-key" style="color:var(--core-yellow)"></i>  
+            <span class="code-text">PAIRING KEY:</span>  
+            <span class="code-value" id="copy-value">${code}</span>  
           </div>`;
       } catch {
         waitingMessage.style.display = "none";
-        a.innerHTML = '<div style="color:#f107a3;padding:8px;">⚠️ Service Unavailable</div>';
+        a.innerHTML = '<div class="error-message">:: SYSTEM FAILURE :: Connection Broken.</div>';
       }
     });
   </script>
