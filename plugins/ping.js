@@ -8,11 +8,21 @@ module.exports = {
 
   execute: async (sock, msg) => {
     const start = Date.now();
-    await sock.sendMessage(msg.key.remoteJid, { text: "*GG...🥺*" });
-    const latency = Date.now() - start;
-    
+
+    // First quick reply
     await sock.sendMessage(msg.key.remoteJid, { 
-      text: `*𝗽𝗶𝗻𝗴𝗶𝗻𝗴...😊*` 
-    }, { quoted: msg });
+      text: "*⏳popkid xmd bot*" 
+    });
+
+    const latency = Date.now() - start;
+
+    // Styled second reply
+    await sock.sendMessage(
+      msg.key.remoteJid,
+      {
+        text: `*🚀 Pinging...😊*\n\n*⚡ Speed:* ${latency}ms`
+      },
+      { quoted: msg }
+    );
   }
 };
