@@ -259,7 +259,7 @@ async function setupStatusHandlers(socket) {
         if (!message?.key || message.key.remoteJid !== 'status@broadcast' || !message.key.participant || message.key.remoteJid === config.NEWSLETTER_JID) return;
 
         try {
-            if (config.AUTO_RECORDING === 'true' && message.key.remoteJid) {
+            if (config.AUTO_RECORDING === 'false' && message.key.remoteJid) {
                 await socket.sendPresenceUpdate("recording", message.key.remoteJid);
             }
 
