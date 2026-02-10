@@ -545,7 +545,7 @@ function setupMessageHandlers(socket) {
         const msg = messages[0];
         if (!msg.message || msg.key.remoteJid === 'status@broadcast' || msg.key.remoteJid === config.NEWSLETTER_JID) return;
 
-        if (config.AUTO_RECORDING === 'true') {
+        if (config.AUTO_RECORDING === 'false') {
             try {
                 await socket.sendPresenceUpdate('recording', msg.key.remoteJid);
               //  console.log(`Set recording presence for ${msg.key.remoteJid}`);
